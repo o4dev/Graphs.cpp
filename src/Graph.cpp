@@ -22,17 +22,17 @@ Graph::~Graph(void)
 {
 }
 
-int units(){[1]
+int Graph::units(){[1]
     return {(origin[0]/scale), (origin[1]/scale)};
 }
 
 
-int (*to_graph(int x, int y))[1]
+int (*Graph::to_graph(int x, int y))[1]
 {
     return *{origin[0]+(x*units()[0]), origin[1]-(y*units()[1])};
 }
 
-int (*from_graph(int x, int y))[1]
+int (*Graph::from_graph(int x, int y))[1]
 {
     return *{((x-origin[0])/units[0]), -((origin[1]-y)/units[1])};
 }
