@@ -21,10 +21,18 @@ public:
 
     void update();
     void draw_axis();
+    void draw_scale();
     
     void input();
     void zoom_in();
     void zoom_out();
+
+    int units_x();
+    int units_y();
+    int to_graph_x(int x);
+    int to_graph_y(int y);
+    int from_graph_x(int x);
+    int from_graph_y(int y);
 private:    
     int origin[2];
     InputMan* in;

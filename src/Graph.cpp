@@ -22,15 +22,25 @@ Graph::~Graph(void)
 {
 }
 
-#define UNITS {(origin[0]/scale), (origin[1]/scale)};
-#define TO_GRAPH(x, y) {origin[0]+(x*UNITS()[0]), origin[1]-(y*UNITS()[1])}
-#define FROM_GRAPH(x, y) {((x-origin[0])/UNITS[0]), -((origin[1]-y)/UNITS[1])}
-
 void Graph::update()
 {
     input();
-
     draw_axis();
+
+    // Let's plot some points !
+    screen->set_pixel(to_graph_x(2), to_graph_y(3), BLACK);
+}
+
+void Graph::draw_axis()
+{
+    screen->draw_line(origin[0], 0, origin[0], height, BLACK);
+    screen->draw_line(0, origin[1], width, origin[1], BLACK);
+
+    draw_scale();
+}
+
+void Graph::draw_scale()
+{
     for (int i = 0; i < origin[0]; ++i)
     {
         if ((i % scale) == 0)
@@ -61,12 +71,6 @@ void Graph::update()
             screen->set_pixel(i + origin[0], origin[1] - 2, BLACK);
         }
     }
-}
-
-void Graph::draw_axis()
-{
-    screen->draw_line(origin[0], 0, origin[0], height, BLACK);
-    screen->draw_line(0, origin[1], width, origin[1], BLACK);
 }
 
 
@@ -110,3 +114,27 @@ void Graph::zoom_out()
 }
 
 
+int Graph::units_x(){
+    return origin[0]/scale;
+}
+int Graph::units_y(){
+    return origin[1]/scale;
+}
+
+int Graph::to_graph_x(int x)
+{
+    return origin[0]+(x*units_x());;
+}
+int Graph::to_graph_y(int y)
+{
+    return origin[1]-(y*units_y());
+}
+
+int Graph::from_graph_x(int x)
+{
+    return (x-origin[0])/units_x();
+}
+int Graph::from_graph_y(int y)
+{
+    return -((origin[1]-y)/units_y());
+}
