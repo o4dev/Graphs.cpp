@@ -27,7 +27,9 @@ void Screen::set_pixel(int x, int y, byte r, byte g, byte b)
 void Screen::set_pixel(int x, int y, int c)
 {
     if (x < 0 | y < 0 | x >= width | y >= height)
+    {
         return;
+    }
     set_pixel(x, y, INTRGB(c));
 }
 
@@ -38,7 +40,8 @@ int Screen::get_pixel(int x, int y)
 
 void Screen::clear(int c)
 {
-    for (int i = 0; i < width * height; i++) {
+    for (int i = 0; i < width * height; i++)
+    {
         unsigned int* pixel = (unsigned int*)(surface->pixels) + i;
         *pixel = SDL_MapRGB(surface->format, c >> 16 & 0xff, c >> 8 & 0xff, c & 0xff);
     }
@@ -52,9 +55,13 @@ void Screen::draw_rectangle(int x, int y, int w, int h, int fc, int bc, int bt)
         {
             int c = fc;
             if (yy < bt | yy >= h - bt | xx < bt | xx >= w - bt)
+            {
                 c = bc;
+            }
             if (c != RGBTRANSPARENT)
+            {
                 set_pixel(x + xx, y + yy, c);
+            }
         }
 }
 
@@ -62,9 +69,15 @@ void Screen::draw_rectangle(int x, int y, int w, int h, int fc, int bc, int bt)
 void Screen::draw_circle(int x, int y, int r, int c)
 {
     for (int yy = -r; yy < r; yy++)
+    {
         for (int xx = -r; xx < r; xx++)
+        {
             if (yy * yy + xx * xx < r * r)
+            {
                 set_pixel(x + xx, y + yy, c);
+            }
+        }
+    }
 }
 
 void Screen::draw_line(int x0, int y0, int x1, int y1, int c)
@@ -74,11 +87,13 @@ void Screen::draw_line(int x0, int y0, int x1, int y1, int c)
         sx = x0 < x1 ? 1 : -1,
         sy = y0 < y1 ? 1 : -1,
         err = dx - dy;
-    for (; ; )
+    while (true)
     {
         set_pixel(x0, y0, c);
         if (x0 == x1 && y0 == y1)
+        {
             break;
+        }
         int e2 = err << 1;
         if (e2 > -dy)
         {
