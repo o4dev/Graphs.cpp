@@ -1,0 +1,42 @@
+### DIRECTORIES ###
+
+# Compiled Binary Directory
+bin/*
+
+# Compiled Intermediate Directory
+obj/*
+
+# SDL Includes
+include/SDL
+
+### FILE EXTENSIONS ###
+
+# Windows Shortcut
+*.lnk
+
+# Compiler Log Files
+*.log
+
+# Visual Studio User-Specific Files
+*.suo
+*.vcxproj.user
+*.vcxproj.filters
+*.sdf
+*.opensdf
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+
+
