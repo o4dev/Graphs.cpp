@@ -29,12 +29,12 @@ int units(){[1]
 
 int (*to_graph(int x, int y))[1]
 {
-    return *{origin[0]+(x*units()[0]), origin[1]-(y*units()[1])}
+    return *{origin[0]+(x*units()[0]), origin[1]-(y*units()[1])};
 }
 
 int (*from_graph(int x, int y))[1]
 {
-    return *{((x-origin[0])/units[0]), -((origin[1]-y)/units[1])}
+    return *{((x-origin[0])/units[0]), -((origin[1]-y)/units[1])};
 }
 
 
