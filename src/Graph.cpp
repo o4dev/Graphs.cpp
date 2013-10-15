@@ -22,21 +22,9 @@ Graph::~Graph(void)
 {
 }
 
-int Graph::units(){[1]
-    return {(origin[0]/scale), (origin[1]/scale)};
-}
-
-
-int (*Graph::to_graph(int x, int y))[1]
-{
-    return *{origin[0]+(x*units()[0]), origin[1]-(y*units()[1])};
-}
-
-int (*Graph::from_graph(int x, int y))[1]
-{
-    return *{((x-origin[0])/units[0]), -((origin[1]-y)/units[1])};
-}
-
+#define UNITS {(origin[0]/scale), (origin[1]/scale)};
+#define TO_GRAPH(x, y) {origin[0]+(x*UNITS()[0]), origin[1]-(y*UNITS()[1])}
+#define FROM_GRAPH(x, y) {((x-origin[0])/UNITS[0]), -((origin[1]-y)/UNITS[1])}
 
 void Graph::update()
 {

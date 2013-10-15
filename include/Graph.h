@@ -25,11 +25,8 @@ public:
     void input();
     void zoom_in();
     void zoom_out();
-
-    int* to_graph(int x, int y)[1];
-    int* from_graph(int x, int y)[1];
 private:    
-    int origin[1];
+    int origin[2];
     InputMan* in;
 };
 
