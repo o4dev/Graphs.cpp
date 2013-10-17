@@ -2,7 +2,7 @@
 UNAME := $(shell uname)
 
 # All should be first rule.
-all: rebuild
+all: rebuild run
 
 clean:
 	rm -fr bin
@@ -21,6 +21,8 @@ all-win: rebuild-win
 
 # All other builds. For Linux, OSX, Unix and any other POSIX OS.
 graphs:
-	g++ src/*.cpp -o bin/graphs -I include/ -L lib/ -lSDLmain -lSDL
+	g++ src/**.cpp -o bin/graphs -Iinclude/ -L lib/ -lSDLmain -lSDL
 rebuild: clean fix graphs
+run:
+	./bin/graphs
 

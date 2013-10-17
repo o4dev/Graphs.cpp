@@ -2,10 +2,8 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include "stdafx.h"
-
-class Screen;
-class InputMan;
+#include "Screen.h"
+#include "InputMan.h"
 
 class Graph
 {

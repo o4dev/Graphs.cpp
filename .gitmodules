@@ -1,0 +1,3 @@
+[submodule "vendor/ECGame"]
+	path = vendor/ECGame
+	url = https://github.com/Exeter-College-Game-Development/ECGame.git
