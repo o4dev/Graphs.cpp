@@ -78,7 +78,7 @@ void Graph::set_point(int x, int y)
 {
     int n = size / (2 * scale);
     int xVal = origin + (x * n);
-    int yVal = origin + (y * n);
+    int yVal = origin - (y * n);
     screen->set_pixel(xVal, yVal, BLACK);
 }
 

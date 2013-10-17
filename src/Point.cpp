@@ -6,5 +6,7 @@ Point::Point(int xVal, int yVal){
 	y = yVal;
 }
 
-Point::~Point(void);
+Point::~Point(void){
+	//
+};
 
