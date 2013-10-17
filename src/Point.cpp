@@ -1,4 +1,4 @@
-#include "Graph.h"
+#include "Point.h"
 
 
 Point::Point(int xVal, int yVal){
