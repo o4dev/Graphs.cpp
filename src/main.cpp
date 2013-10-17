@@ -8,14 +8,13 @@ using namespace std;
 int main(int argc, char** argv)
 {
     const int FPS = 60, 
-              WIDTH = 800, 
-              HEIGHT = 600,
+              SIZE = 800,
               SCALE = 20;
 
     SDL_Init(SDL_INIT_EVERYTHING);
     uint tick = 0;
     
-    Screen* screen = new Screen(WIDTH, HEIGHT);
+    Screen* screen = new Screen(SIZE, SIZE);
     Graph* graph = new Graph(screen, SCALE);
 
     while(graph->running)
@@ -23,7 +22,7 @@ int main(int argc, char** argv)
         screen->clear(~0);
 
         graph->update();
-
+#
         tick = SDL_GetTicks();
         SDL_Flip(screen->get_surface());
         if(1000 / FPS > SDL_GetTicks() - tick)

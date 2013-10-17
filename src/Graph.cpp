@@ -7,11 +7,10 @@ Graph::Graph(Screen* s, int sca)
     screen = s;
     scale = sca;
     
-    width = s->width;
-    height = s->height;
+    size = s->width;
+    s->height = size;
 
-    origin[0] = width/2;
-    origin[1] = height/2;
+    origin = size/2;
 
     in = new InputMan();
 
@@ -30,50 +29,59 @@ void Graph::update()
     draw_axis();
 
     // Let's plot some points !
-    screen->set_pixel(to_graph_x(2), to_graph_y(3), BLACK);
+    set_point(2, 3);
 }
 
 void Graph::draw_axis()
 {
-    screen->draw_line(origin[0], 0, origin[0], height, BLACK);
-    screen->draw_line(0, origin[1], width, origin[1], BLACK);
+    screen->draw_line(origin, 0, origin, size, BLACK);
+    screen->draw_line(0, origin, size, origin, BLACK);
 
     draw_scale();
 }
 
 void Graph::draw_scale()
 {
-    for (int i = 0; i < origin[0]; ++i)
+    for (int i = 0; i < origin; ++i)
     {
         if ((i % scale) == 0)
         {
 
             // x = 0, y > 0
-            screen->set_pixel(origin[0] + 2, origin[1] - i, BLACK);
-            screen->set_pixel(origin[0] + 1, origin[1] - i, BLACK);
-            screen->set_pixel(origin[0] - 1, origin[1] - i, BLACK);
-            screen->set_pixel(origin[0] - 2, origin[1] - i, BLACK);
+            screen->set_pixel(origin + 2, origin - i, BLACK);
+            screen->set_pixel(origin + 1, origin - i, BLACK);
+            screen->set_pixel(origin - 1, origin - i, BLACK);
+            screen->set_pixel(origin - 2, origin - i, BLACK);
 
             // x = 0, y < 0
-            screen->set_pixel(origin[0] + 2, i + origin[1], BLACK);
-            screen->set_pixel(origin[0] + 1, i + origin[1], BLACK);
-            screen->set_pixel(origin[0] - 1, i + origin[1], BLACK);
-            screen->set_pixel(origin[0] - 2, i + origin[1], BLACK);
+            screen->set_pixel(origin + 2, i + origin, BLACK);
+            screen->set_pixel(origin + 1, i + origin, BLACK);
+            screen->set_pixel(origin - 1, i + origin, BLACK);
+            screen->set_pixel(origin - 2, i + origin, BLACK);
 
             // y = 0, x > 0
-            screen->set_pixel(origin[0] - i, origin[1] + 2, BLACK);
-            screen->set_pixel(origin[0] - i, origin[1] + 1, BLACK);
-            screen->set_pixel(origin[0] - i, origin[1] - 1, BLACK);
-            screen->set_pixel(origin[0] - i, origin[1] - 2, BLACK);
+            screen->set_pixel(origin - i, origin + 2, BLACK);
+            screen->set_pixel(origin - i, origin + 1, BLACK);
+            screen->set_pixel(origin - i, origin - 1, BLACK);
+            screen->set_pixel(origin - i, origin - 2, BLACK);
 
             // y = 0, x < 0
-            screen->set_pixel(i + origin[0], origin[1] + 2, BLACK);
-            screen->set_pixel(i + origin[0], origin[1] + 1, BLACK);
-            screen->set_pixel(i + origin[0], origin[1] - 1, BLACK);
-            screen->set_pixel(i + origin[0], origin[1] - 2, BLACK);
+            screen->set_pixel(i + origin, origin + 2, BLACK);
+            screen->set_pixel(i + origin, origin + 1, BLACK);
+            screen->set_pixel(i + origin, origin - 1, BLACK);
+            screen->set_pixel(i + origin, origin - 2, BLACK);
         }
     }
 }
+
+void Graph::set_point(int x, int y)
+{
+    int n = size / (2 * scale);
+    int xVal = origin + (x * n);
+    int yVal = origin + (y * n);
+    screen->set_pixel(xVal, yVal, BLACK);
+}
+
 
 
 void Graph::input()
@@ -90,8 +98,8 @@ void Graph::input()
                 in->set_key_down(event.key.keysym.sym);
                 break;
             case SDL_KEYUP:
-               in->set_key_up(event.key.keysym.sym);
-               break;
+                in->set_key_up(event.key.keysym.sym);
+                break;
         }
     }
 
@@ -112,7 +120,7 @@ void Graph::input()
 
 void Graph::zoom_in()
 {
-    if (scale < origin[0])
+    if (scale < origin)
     {
         scale += 1;
     }
@@ -128,27 +136,3 @@ void Graph::zoom_out()
 }
 
 
-int Graph::units_x(){
-    return origin[0]/scale;
-}
-int Graph::units_y(){
-    return origin[1]/scale;
-}
-
-int Graph::to_graph_x(int x)
-{
-    return origin[0]+(x*units_x());;
-}
-int Graph::to_graph_y(int y)
-{
-    return origin[1]-(y*units_y());
-}
-
-int Graph::from_graph_x(int x)
-{
-    return (x-origin[0])/units_x();
-}
-int Graph::from_graph_y(int y)
-{
-    return -((origin[1]-y)/units_y());
-}
