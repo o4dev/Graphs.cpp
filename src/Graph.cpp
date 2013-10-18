@@ -137,18 +137,18 @@ void Graph::input()
 
 void Graph::zoom_in()
 {
-    if (scale < origin)
+    if (scale > 2)
     {
-        scale += 1;
+        scale -= 1;
     }
 }
 
 
 void Graph::zoom_out()
 {
-    if (scale > 2)
+    if (scale < origin)
     {
-        scale -= 1;
+        scale += 1;
     }
 }
 
